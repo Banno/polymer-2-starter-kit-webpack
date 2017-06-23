@@ -22,11 +22,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="my-icons.html">
 
-<link rel="lazy-import" href="my-view1.html">
-<link rel="lazy-import" href="my-view2.html">
-<link rel="lazy-import" href="my-view3.html">
-<link rel="lazy-import" href="my-view404.html">
-
 <dom-module id="my-app">
   <template>
     <style>
@@ -83,6 +78,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <a name="view1" href="view1">View One</a>
           <a name="view2" href="view2">View Two</a>
           <a name="view3" href="view3">View Three</a>
+          <a name="view4" href="view4">View Four</a>
         </iron-selector>
       </app-drawer>
 
@@ -125,6 +121,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           rootPattern: String,
           routeData: Object,
           subroute: String,
+          lazyPages: {
+            type: Object,
+            value: {
+              view1: function() {
+                import(/* webpackChunkName: "my-view1" */ './my-view1.html');
+              },
+              view2: function() {
+                import(/* webpackChunkName: "my-view2" */ './my-view2.html');
+              },
+              view3: function() {
+                import(/* webpackChunkName: "my-view3" */ './my-view3.html');
+              },
+              view404: function() {
+                import(/* webpackChunkName: "my-view404" */ './my-view404.html');
+              }
+            }
+          }
         };
       }
 
@@ -160,13 +173,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       _pageChanged(page) {
-        // Load page import on demand. Show 404 page if fails
-        var resolvedPageUrl = this.resolveUrl('my-' + page + '.html');
-        Polymer.importHref(
-            resolvedPageUrl,
-            null,
-            this._showPage404.bind(this),
-            true);
+        if(this.lazyPages[page]){
+          this.lazyPages[page]();       
+        } else {
+          this._showPage404();
+        }        
       }
 
       _showPage404() {
