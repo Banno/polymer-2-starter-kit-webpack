@@ -57,12 +57,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       // Register the base URL
       const baseUrl = document.querySelector('base').href;
 
-      // Load and register pre-caching Service Worker
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          navigator.serviceWorker.register(baseUrl + 'service-worker.js');
-        });
-      }
+      // // Load and register pre-caching Service Worker
+      // if ('serviceWorker' in navigator) {
+      //   window.addEventListener('load', function() {
+      //     navigator.serviceWorker.register(baseUrl + 'service-worker.js');
+      //   });
+      // }
+    </script>
+
+    <script>
+      document.addEventListener('WebComponentsReady', function webcomponentsready() {
+        var refScript = document.getElementsByTagName('script')[0];
+        var script = document.createElement('script');
+        script.src = 'dist/main.bundle.js';
+        refScript.parentNode.insertBefore(script, refScript);
+        document.removeEventListener('WebComponentsReady', webcomponentsready, false);
+      }, false);
     </script>
 
     <!-- Load webcomponents-loader.js to check and load any polyfills your browser needs -->
@@ -76,7 +86,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         background-color: #eeeeee;
       }
     </style>
-    <script src="dist/main.bundle.js"></script>
   </head>
   <body>
     <my-app></my-app>
