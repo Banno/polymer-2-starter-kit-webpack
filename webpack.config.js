@@ -21,7 +21,7 @@ module.exports = {
         test: /\.html$/,
         use: [
           {
-            loader: 'component-loader'
+            loader: 'polymer-webpack-loader'
           }
         ]
       }

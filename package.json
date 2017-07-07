@@ -2,10 +2,10 @@
   "name": "polymer-starter-kit",
   "license": "BSD-3-Clause",
   "devDependencies": {
-    "component-loader": "git+ssh://git@github.com/Banno/component-loader.git",
     "eslint": "^3.19.0",
     "eslint-config-google": "^0.7.0",
     "eslint-plugin-html": "^2.0.0",
+    "polymer-webpack-loader": "^1.0.0",
     "webpack": "^2.6.1"
   },
   "scripts": {
@@ -13,5 +13,5 @@
     "lint:javascript": "eslint . --ext js,html --ignore-path .gitignore",
     "test": "polymer test",
     "test:integration": "polymer build # test that psk builds without error with the CLI"
-  }  
+  }
 }
