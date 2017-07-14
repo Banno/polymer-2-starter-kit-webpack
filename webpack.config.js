@@ -14,14 +14,32 @@ module.exports = {
     modules: ['node_modules', 'bower_components'],
     descriptionFiles: ['package.json']
   },
-
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {
         test: /\.html$/,
         use: [
           {
+            loader: 'babel-loader',
+            options: {
+              presets: ['env'],
+              plugins: ['syntax-dynamic-import']
+            }
+          },
+          {
             loader: 'polymer-webpack-loader'
+          }
+        ]
+      },
+      {
+        test: /\.js$/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['env']
+            }
           }
         ]
       }

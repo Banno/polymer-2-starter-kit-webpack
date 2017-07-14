@@ -64,7 +64,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       //   });
       // }
     </script>
-
+    <script>
+      if(window.fetch) {
+        var refScript = document.getElementsByTagName('script')[0];
+        var script = document.createElement('script');
+        script.src = 'bower_components/webcomponentsjs/custom-elements-es5-adapter.js';
+        refScript.parentNode.insertBefore(script, refScript); 
+      }
+    </script>
     <script>
       document.addEventListener('WebComponentsReady', function webcomponentsready() {
         var refScript = document.getElementsByTagName('script')[0];
